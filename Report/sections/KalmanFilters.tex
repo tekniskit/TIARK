@@ -1,4 +1,31 @@
 %!TEX root = ../Master.tex
 
 \section{Kalman filters}
+
+The Kalman filter is a technique for filtering and prediction in linear systems. In the context of robotics the filter can be used to locate the robot and make predictions as to where the robot will reside in the next time-step.\\
+
+The technique makes it possible to do data fusion, which is the process of combining observations from a number of different sensors to provide a robust and complete description of the environment. Robots could e.g. use radar, lidar, GPS, compass, camera, etc. for location and combining these sensor informations would result in are more complete overview of the car and its environment.\\
+
+The Kalman filter consists of a basic cycles which includes making predictions and updating these prediction with actual measurement data. The filter represent its beliefs about the systems state as a gaussian distribution which is characterized by two parameters: the mean $\mu$ and the variance $\sigma^2$. Another important property of the Kalman filter and gaussians is that they are unimodel. This means that they posses a single maximum as opposed to e.g. Particle Filters and Monte Carlo Localization which are multimodal.\\
+
+The formal definition of the Kalman filter algorithm is given in algorithm~\ref{alg:kf_def1}.
+
+\alglanguage{pseudocode}
+\begin{algorithm}[H]
+\caption{Kalman Filter Algorithm}
+\label{alg:kf_def1}
+\begin{algorithmic}[1]
+\Procedure{KalmanFilter}{$\mu_{t-1},\Sigma_{t-1},u_{t},z_{t}$}
+   \State $\bar\mu_{t} = A_{t}\mu_{t-1} + B_{t}u_{t}$%\Comment{This is a comment}
+   \State $\bar\Sigma_{t} = A_{t}\Sigma_{t-1}A_{t}^T + R_{t}$
+   \State $K_{t} = \bar\Sigma_{t}C_{t}^T(C_{t}\Sigma_{t}C_{t}^T+Q_{t})^{-1}$
+   \State $\mu_{t} = \bar\mu_{t} + K_{t}(z_{t} - C_{t}\bar\mu_{t})$
+   \State $\Sigma_{t} = (I - K_{t}C_{t})\bar\Sigma_{t}$
+   \State \textbf{return} $\mu_{t}, \Sigma_{t}$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+The algorithm takes four parameters: The previous mean and variance of the system $\mu_{t-1}$ and $\Sigma_{t-1}$, respectively.
+
 \subsection{Extended Kalman filters}

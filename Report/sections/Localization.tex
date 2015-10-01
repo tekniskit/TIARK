@@ -17,7 +17,7 @@ The first task for the robot is to sense. This in done by using the sensors whic
 
 The algorithm to implement the two tasks is called the Markov Localization algorithm and is illustrated in \ref{fig:markovLocalization}. The algorithm calculates the new belief based on the old belief $bel(x_{(t-1)})$, the motion $u_t$, the meassurements $z_t$ and the map.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.25]{images/MarkovLocalization}
 \caption{The Markov Localization algorithm}
@@ -28,35 +28,35 @@ The algorithm takes the probability of being located at the new location $x_t$ b
 
 \subsection{Robot Example}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.37]{images/MarkovLocalizationA}
 \caption{The robot's initial belief}
 \label{fig:initialBelief}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.37]{images/MarkovLocalizationB}
 \caption{The robot's belief after sensing}
 \label{fig:afterSenseBelief}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.37]{images/MarkovLocalizationC}
 \caption{The robot's belief after moving}
 \label{fig:afterMoveBelief}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.37]{images/MarkovLocalizationD}
 \caption{The robot's belief after second sensing}
 \label{fig:afterSecondSenseBelief}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.37]{images/MarkovLocalizationE}
 \caption{The robot localizes itself}
