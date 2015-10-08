@@ -8,8 +8,11 @@ The technique makes it possible to do data fusion, which is the process of combi
 
 The Kalman filter consists of a basic cycles which includes making predictions and updating these prediction with actual measurement data. The filter represent its beliefs about the systems state as a gaussian distribution which is characterized by two parameters: the mean $\mu$ and the variance $\sigma^2$. Another important property of the Kalman filter and gaussians is that they are unimodel. This means that they posses a single maximum as opposed to e.g. Particle Filters and Monte Carlo Localization which are multimodal.\\
 
-The formal definition of the Kalman filter algorithm is given in algorithm~\ref{alg:kf_def1}.
+The formal definition of the Kalman filter algorithm is given in algorithm \ref{alg:kf_def1}.
 
+% \begin{figure}[H]
+\begin{center}
+\begin{minipage}{.65\linewidth}
 \alglanguage{pseudocode}
 \begin{algorithm}[H]
 \caption{Kalman Filter Algorithm}
@@ -25,6 +28,9 @@ The formal definition of the Kalman filter algorithm is given in algorithm~\ref{
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+\end{minipage}
+\end{center}
+% \end{figure}
 
 The algorithm takes four parameters: The previous mean and variance of the system $\mu_{t-1}$ and $\Sigma_{t-1}$, respectively.
 
