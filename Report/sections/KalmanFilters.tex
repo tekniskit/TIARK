@@ -8,30 +8,61 @@ The technique makes it possible to do data fusion, which is the process of combi
 
 The Kalman filter consists of a basic cycles which includes making predictions and updating these prediction with actual measurement data. The filter represent its beliefs about the systems state as a gaussian distribution which is characterized by two parameters: the mean $\mu$ and the variance $\sigma^2$. Another important property of the Kalman filter and gaussians is that they are unimodel. This means that they posses a single maximum as opposed to e.g. Particle Filters and Monte Carlo Localization which are multimodal.\\
 
-The formal definition of the Kalman filter algorithm is given in algorithm \ref{alg:kf_def1}.
+The formal definition of the Kalman Filter algorithm is given in Algorithm \ref{alg:kf_def1}. Notice that the variance is now represented by $\Sigma_{t}$ which in higher dimensional spaces denotes an covariance matrix.
 
-% \begin{figure}[H]
 \begin{center}
 \begin{minipage}{.65\linewidth}
 \alglanguage{pseudocode}
 \begin{algorithm}[H]
-\caption{Kalman Filter Algorithm}
+\caption{Kalman Filter}
 \label{alg:kf_def1}
 \begin{algorithmic}[1]
 \Procedure{KalmanFilter}{$\mu_{t-1},\Sigma_{t-1},u_{t},z_{t}$}
-   \State $\bar\mu_{t} = A_{t}\mu_{t-1} + B_{t}u_{t}$%\Comment{This is a comment}
-   \State $\bar\Sigma_{t} = A_{t}\Sigma_{t-1}A_{t}^T + R_{t}$
-   \State $K_{t} = \bar\Sigma_{t}C_{t}^T(C_{t}\Sigma_{t}C_{t}^T+Q_{t})^{-1}$
-   \State $\mu_{t} = \bar\mu_{t} + K_{t}(z_{t} - C_{t}\bar\mu_{t})$
-   \State $\Sigma_{t} = (I - K_{t}C_{t})\bar\Sigma_{t}$
-   \State \textbf{return} $\mu_{t}, \Sigma_{t}$
+  \State $\bar\mu_{t} = A_{t}\mu_{t-1} + B_{t}u_{t}$%\Comment{This is a comment}
+  \State $\bar\Sigma_{t} = A_{t}\Sigma_{t-1}A_{t}^T + R_{t}$
+  \State $K_{t} = \bar\Sigma_{t}C_{t}^T(C_{t}\Sigma_{t}C_{t}^T+Q_{t})^{-1}$
+  \State $\mu_{t} = \bar\mu_{t} + K_{t}(z_{t} - C_{t}\bar\mu_{t})$
+  \State $\Sigma_{t} = (I - K_{t}C_{t})\bar\Sigma_{t}$
+  \State \textbf{return} $\mu_{t}, \Sigma_{t}$
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
 \end{minipage}
 \end{center}
-% \end{figure}
 
-The algorithm takes four parameters: The previous mean and variance of the system $\mu_{t-1}$ and $\Sigma_{t-1}$, respectively.
+The algorithm takes four parameters: The previous mean and variance of the system $\mu_{t-1}$ and $\Sigma_{t-1}$, respectively, the new control-input $u_{t}$ and measurement data $z_{t}$. In line 2 the previous mean and control-input are mapped into the new mean $\bar{\mu_{t}}$ which is a prediction of the system state. In line 3 the variance is propagated together with the measurement noise $R_{t}$. In line 4 the kalman gain is calculated, which is used as a weight factor in line 5 to determine the degree to which we believe in the measurement as opposed to the prediction. Lastly the variance is updated in line 6.\\
+
+The mean of the system could be a position, velocity or a heading. The transition matrix $A_{t}$ applies the effects of $\mu_{t-1}$ on $\mu_{t}$, and the transition matrix $B_{t}$ applies the effects of control-input $u_{t}$ on $\mu_{t}$. The factors $R_{t}$ and $Q_{t}$ models the motion noise and measurement noise, respectively. In higher dimensional spaces these will be covariance matrices.\\
+
+As mentioned, the Kalman Filter represents its beliefs about the system, predictions and measurements, as gaussians. A important property of the Kalman Filter is that combining the predictions and the measurements increases our certainty about the system state, and to this end gaussians has the characteristic that multiplying to gaussians produces a new gaussian with a variance that is smaller than both the original gaussians variances, and therefore this new gaussian will have a larger peak than the original gaussians. The mean of the new gaussian will lie between the original gaussians.
+The measurement update consists of multiplying the prediction and the measurement gaussians. The equations for the new gassians mean and variance are giving in equation \ref{eq:new_mu1} and \ref{eq:new_sigma1}, respectively.
+
+\begin{equation}
+\label{eq:new_mu1}
+\mu = \dfrac{\sigma_{2}^2\mu_{1} + \sigma_{1}^2\mu_{2}}{\sigma_{2}^2 + \sigma_{1}^2}
+\end{equation}
+\begin{equation}
+\label{eq:new_sigma1}
+\sigma^2 = (\dfrac{1}{\sigma_{2}^2} + \dfrac{1}{\sigma_{1}^2})^{-1}
+\end{equation}
+
+There is a certain degree of error involved in the motion of an object due to e.g. friction, ... The motion update therefore consists of moving the mean and adding some degree of uncertainty which mean increasing the variance of the new gaussian w.r.t the original gaussian. The motion update turns out to be very simple and is preformed by adding the means and the variances. The equations for the motion update is giving in \ref{eq:new_mu2} and \ref{eq:new_sigma2}.
+
+\begin{equation}
+\label{eq:new_mu2}
+\mu = \mu_{1} + \mu_{2}
+\end{equation}
+\begin{equation}
+\label{eq:new_sigma2}
+\sigma^2 = \sigma_{1}^2 + \sigma_{2}^2
+\end{equation}
+
+Example.
+
+
+Limitations.
 
 \subsection{Extended Kalman filters}
+
+
+
