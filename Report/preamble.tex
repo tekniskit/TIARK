@@ -19,4 +19,13 @@
 \usepackage{algpascal}
 \usepackage{algc}
 
+% Matrix row spacing
+\makeatletter
+\renewcommand*\env@matrix[1][\arraystretch]{%
+  \edef\arraystretch{#1}%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{*\c@MaxMatrixCols c}}
+\makeatother
+
 \setlength{\parindent}{0cm}
