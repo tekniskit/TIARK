@@ -5,25 +5,49 @@
 
 When a robot has located itself the next task might be to go somewhere. The task of planning a path from the location of the robot to some goal location is, when talking about robots, often referred to as robot motion planning. The problem to solve is to find the best possible path for the goal location when knowing the start location, the map and maybe some kind of cost function. This cost function can be thought of as the time it takes to follow a certain route. When introducing this cost function the best possible path is the minimum cost path. \\
 
-\subsection{Search Problem} % (fold)
-\label{sub:search_problem}
+\subsection{A* Algorithm} % (fold)
+\label{sub:a_algorithm}
 
-The path planning can be looked at as a search problem. A search problem is a problem with a set of nodes, an initial node and a goal node. The search problem can be solved by using the search algorithm. The search algorithm starts at the initial node and searches throughout all the nodes in order to find the goal node. A variant of this search algorithm has been developed in order to handle the problem of path planning better. This algorithm is referred to as A* (pronounced A star). \\
+The path planning can be looked at as a search problem. A search problem is a problem with a set of nodes, an initial node and a goal node. The search problem can be solved by using a search algorithm. The search algorithm starts at the initial node and searches throughout the nodes in order to find the goal node. A variant of this search algorithm has been developed in order to handle the problem of path planning better. This algorithm is referred to as A* (pronounced A star). The steps of the algorithm is explained in the following sections. \\
 
-To understand the A* algorithm the understanding of the search algorithm should be obtained.
+To understand the approach of the A* algorithm a couple of variables must be introduced. \\
 
-\subsubsection{A* Algorithm} % (fold)
-\label{subsub:a_algorithm}
+\begin{itemize}
+	\item The \emph{g} value is the cost of the path used to get to that node.
 
+	\item The \emph{h} value is the number of nodes to pass to get to the goal node without taking obstacles into account. This can also be looked at as the displacement along both the x-axis and the y-axis of a node compared to the goal node.
 
+	\item The \emph{f} value is the sum of the \emph{g} value and the \emph{h} value.\\
+\end{itemize}
 
-% subsubsection a_algorithm (end)
-% subsection search_problem (end)
+The algorithm also introduces three different lists.
+
+\begin{itemize}
+	\item The \emph{open} list is a list of nodes to be investigated. The list is sorted in a way so the node with the smallest \emph{f} value is the next node to be investigated. Nodes are being added to the \emph{open} list when a neighbor node is being investigated.
+
+	\item The \emph{closed} list is a list of all nodes which have been investigated. This is used to keep track of these nodes in order to avoid investigation of a node twice or more.
+
+	\item The \emph{action} list is a list which keeps track of which node was the previous node for all investigated nodes.\\
+\end{itemize}
+
+The procedure of the algorithm is as following. 
+
+\begin{enumerate}
+  \item The initial node is added to the \emph{open} list.
+
+  \item The node in the \emph{open} list with the lowest \emph{f} value is chosen to be investigated. The chosen node is deleted from the \emph{open} list and added to the \emph{closed} list. 
+
+  \item All neighbor nodes which are not in the \emph{closed} list are added to the \emph{open} list. All nodes are added to the \emph{action} list together with the information of which node was the previous node.
+\end{enumerate}
+
+Step two and three are repeated until the node from the \emph{open} list is the goal node. From the \emph{action} list the way from the goal node and back to the initial node can be found. If this way is reversed the robot has planned a path.
+
+% subsection a_algorithm (end)
 
 \subsection{Robot Motion} % (fold)
 \label{sub:robot_motion}
 
-Chaper 5 in the book.
+Chapter 5 in the book.
 
 % subsection robot_motion (end)
 % section search_and_robot_motion (end)
