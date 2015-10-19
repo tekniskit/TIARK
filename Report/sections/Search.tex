@@ -1,7 +1,7 @@
 %!TEX root = ../Master.tex
 
-\section{Search and Robot Motion} % (fold)
-\label{sec:search_and_robot_motion}
+\section{Path Planning} % (fold)
+\label{sec:path_planning}
 
 When a robot has located itself the next task might be to go somewhere. The task of planning a path from the location of the robot to some goal location is, when talking about robots, often referred to as robot motion planning. The problem to solve is to find the best possible path for the goal location when knowing the start location, the map and maybe some kind of cost function. This cost function can be thought of as the time it takes to follow a certain route. When introducing this cost function the best possible path is the minimum cost path. \\
 
@@ -40,14 +40,56 @@ The procedure of the algorithm is as following.
   \item All neighbor nodes which are not in the \emph{closed} list are added to the \emph{open} list. All nodes are added to the \emph{action} list together with the information of which node was the previous node.
 \end{enumerate}
 
-Step two and three are repeated until the node from the \emph{open} list is the goal node. From the \emph{action} list the way from the goal node and back to the initial node can be found. If this way is reversed the robot has planned a path.
+Step two and three are repeated until the node from the \emph{open} list is the goal node. Then the planned path can be found. This is done by introducing a new list called \emph{path}. The goal node is added to this list and from the \emph{action} list the previous node is known. This node is added to the \emph{path} list. The previous node to this node is looked up in the \emph{action} list and so on until the previous node is the initial node. After reversing the \emph{path} list the path for the robot is planned. \\
 
 % subsection a_algorithm (end)
 
-\subsection{Robot Motion} % (fold)
-\label{sub:robot_motion}
+\subsection{Path Smoothing} % (fold)
+\label{sub:path_smoothing}
 
-Chapter 5 in the book.
+As described the A* algorithm results in a \emph{path} list. This planned path might be a very cornered path with lots of sharp turns for the robot to do. If this is not desirable for the robot the path can be smoothed. \\
 
-% subsection robot_motion (end)
-% section search_and_robot_motion (end)
+For the smoothing algorithm all nodes in the \emph{path} list are denoted $x_i$ where $i$ is the number the node has in the list. All nodes in the \emph{smoothened path} list is denoted $y_i$. The algorithm has to solve a minimization problem. The \emph{smoothened path} list is initialized to be the same as the \emph{path} list as it is denoted in \autoref{eq:init_smooth_path}.
+
+\begin{equation}
+\label{eq:init_smooth_path}
+y_i = x_i
+\end{equation}
+
+The minimization problem is defined in \autoref{eq:minimize}. The factor $\alpha$ sets how smooth the path is going to be. The larger value of $\alpha$, the more smooth does the path get. 
+
+\begin{equation}
+\label{eq:minimize}
+\text{minimize\ } (x_i - y_i)^2 - \alpha (y_i - y_{i+1})^2
+\end{equation}
+
+In an implementation of the path smoothening algorithm two values are used to regulate for the smoothening, $\alpha$ and $\beta$. The $\alpha$ value yields how much the path should smoothen and the $\beta$ value yields how much the path should look like the original path. The path is being changed until the new change is smaller than some tolerance. An example of an implementation is shown in \autoref{smooth_path}. Notice that when the algorithm is implemented the initial node and the goal node has to stay unchanged.
+
+\begin{lstlisting}[caption=Implementation example of path smoothing., label=smooth_path, language=Matlab]
+function newpath = smoothPath(path, alpha, beta, tolerance)
+    [length, width] = size(path);
+    newpath = zeros(length,width);
+    
+    for i = 1:length
+        for j = 1:width
+            newpath(i,j) = path(i,j);
+        end
+    end
+    
+    change = tolerance;
+    while change >= tolerance
+        change = 0;
+        for n = 2:length - 1
+            for m = 1:width
+                aux = newpath(n,m);
+                newpath(n,m) = newpath(n,m) + alpha * (path(n,m) - newpath(n,m));
+                newpath(n,m) = newpath(n,m) + beta * (newpath(n-1,m)+newpath(n+1,m)-2*newpath(n,m));
+                change = change + abs(aux - newpath(n,m));
+            end
+        end
+    end
+end
+\end{lstlisting}
+
+% subsection path_smoothing (end)
+% section path_planning (end)
