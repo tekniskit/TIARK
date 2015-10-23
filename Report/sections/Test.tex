@@ -3,4 +3,12 @@
 \section{Test} % (fold)
 \label{sec:test}
 
+This section presents the results of testing the success rate of the Particle Filter implementation for localization. Since the code was not successfully executed on the physical robot platform, the tests have only been carried out as simulations using the visualization tool included in ROS.\\
+
+As mentioned, the objective of the test is to assess the success rate of the Particle Filter implementation for locating the robot. It is not always the case, that the Particle Filter leads the robot to find the correct location, but instead, particle clusters gets formed at locations which are symmetric to the robots actual location. If this happens, the robot can actually start path planning from a wrong location, which either successfully reaches the goal in rare situations or if the particle cluster becomes sufficiently inconsistent with the actual robot distance measurements, the robot can get stuck because it is navigating the planned path with a wrong belief about its location and therefore getting confused by the measurements.\\
+
+The tests are carried out by running multiple simulations on the same map, and the success of a run is defined by a particle cluster formed around the robot and the robot planning a path to some location and successfully reaching this location. If a particle cluster is formed at wrong location and a path is planned from this location, this run is considered a failure.\\
+
+Ten simulations have been conducted with the robot starting at the same location each run and with same goal for the path planning. Of these ten runs, six simulations resulted in robot successfully locating itself and reaching the goal. This of course works out to a success rate of 60\% which is not an impressive result. Whether this is acceptable or not depends on the application, but in most cases this probably won't be acceptable.
+
 % section test (end)
