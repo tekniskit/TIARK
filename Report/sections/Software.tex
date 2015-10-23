@@ -63,6 +63,23 @@ A guassian is used to calculate the weight of a measurement:
 $$x_i = \frac{p_i - r_i}{r_i}$$
 $$w = \sum_{i=0}^N exp\left(-\frac{{x_i}^2}{2\sigma^2}\right)$$
 
+For resampling the low variance resampler is used.
+
+To get an estimate for the robots pose from all the particles, the particle with the highest weight is used.
+The weight and estimate is updated after every measurement.
+As a metric for the uncertainty of the estimate the variance of the particle cloud is used.
+
 \subsection{Explorer}
+If possible it will turn alternately 90 degrees left and right to explore as far away as possible.
+This is done so that the robot doesn't can get out of any symmetrically areas.
+If it isn't possible to turn alternately it will turn in the avaiable direction.
+
 \subsection{PathFollower}
+It will aim for the nearest point on the path and when it is close enough within some threshold it will start aiming for the next point.
+This makes the robot follow the path in a more smooth way.
+
 \subsection{AStarPlanner}
+Implements the A* algorithm to do path planning. The different values of map are used as a costmap to plan the best path.
+
+
+
