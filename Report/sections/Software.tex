@@ -1,6 +1,38 @@
 %!TEX root = ../Master.tex
 
-\section{Software} % (fold)
+\section{Software} 
 \label{sec:software}
 
-% section software (end)
+Overall architecture.
+Use of ROS and RVIZ.
+Why didn't we use the navigation stack and other ros packages?
+
+\subsection{ROS}
+To be able to easily test and validate the implemented AI methods, we used ROS to visualize the system.
+
+ROS (Robot Operating System) is a collection of software for building robotsystems.
+ROS has a large collection of packages for 3D visualization, navigation, mapping, localization, planning, etc.  
+
+Only the visualization and communication parts of ROS has been used in this project.
+This was done because we wanted to write our own implementation of localization, planning and control.
+
+A ROS project consists of a collection of processes with a single responsability, i.e. planning, vision, control, etc. 
+ROS also handles the communication between these processes.\\
+The processes are conceptualized as nodes in a network which can communication by publishing and subscriping on topics.
+
+The communication in ROS consists of messages with a specific data type.
+The datatype could be anything from simple integers to LaserScans which descripes a scan from a lidar and extra header information as a timestamp and a sequence number if the order of scans are important.
+
+A node can also contain services which can be called with a request-response communication model, instead of the the publish-subscripe model between nodes.
+
+ROS master is the program that coordinates the communication between the nodes.
+It also works as a registry for nodes, services, topics, etc.
+
+\subsection{ROS Nodes}
+\subsection{Map}
+\subsection{Lidar}
+\subsection{Particle}
+\subsection{Monte Carlo Localizer}
+\subsection{Explorer}
+\subsection{PathFollower}
+\subsection{AStarPlanner}
