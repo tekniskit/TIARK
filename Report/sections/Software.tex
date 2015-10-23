@@ -6,6 +6,7 @@
 Overall architecture.
 Use of ROS and RVIZ.
 Why didn't we use the navigation stack and other ros packages?
+We used c++ and the following sections, except ROS, will descripe each class we wrote.
 
 \subsection{ROS}
 To be able to easily test and validate the implemented AI methods, we used ROS to visualize the system.
@@ -29,10 +30,39 @@ ROS master is the program that coordinates the communication between the nodes.
 It also works as a registry for nodes, services, topics, etc.
 
 \subsection{ROS Nodes}
+The system implements two ROS nodes, the first is a driver for Neato robot and the second is the navigation system.\\
+
+The driver is a modified version of a open source driver for the robot. \fixme{link to github}
+The open source driver implements an older version of the serial protocol for the Neato robot.
+This have been modified to implement the newer protocol which our robot uses.\\
+
+The navigation node implements all of the AI algoritms; localization, planning and control.
+The two nodes communicate using ROS messages for lidar scans and control commands. 
+
 \subsection{Map}
+The map is implemented as a matrix of grid cells where each grid cell represents a 25cm*25cm square in the real world.
+Each grid cell consists of an integer describing what is in the grid cell. For instance every cell descriping a wall has the value 100, open floor is 20, the preferred path of the robot is 1.
+These specific values are choosen to make the path planning easier as they descripe the cost of driving in that specific area.
+The map is also used when simulating lidar scans.
+
 \subsection{Lidar}
-\subsection{Particle}
+The localization require the ability to simulate a lidar scan in the given map.
+This is implemented using a ray casting algorithm.
+Since this was not part of the course corriculum, an open source implementation has been used.\\
+
+It can calculate the distance from a given point to the nearest wall in a given direction.
+
 \subsection{Monte Carlo Localizer}
+The localization in the project is implemented using the Monte Carlo localization algorithm.
+
+Initially all the particles are randomly spread uniformly across the map.
+Each time we get a lidar scan from the robot we update each particles weight as the average between the existing weight and the new weight.
+
+The weights are calculated using the lidar scan from the robot and a simulated scan from the Lidar class using the particles pose.
+A guassian is used to calculate the weight of a measurement:
+$$x_i = \frac{p_i - r_i}{r_i}$$
+$$w = \sum_{i=0}^N exp\left(-\frac{{x_i}^2}{2\sigma^2}\right)$$
+
 \subsection{Explorer}
 \subsection{PathFollower}
 \subsection{AStarPlanner}
