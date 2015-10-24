@@ -8,7 +8,8 @@ By using a Neato XV-11 vacuum cleaning robot in \autoref{fig:neato_xv11} which h
 The lidar has a resolution of 360 measurements per revolution and can measure up to 5 meters.\\
 
 The Neato robot has a serial interface accessable through a USB port on the back of the robot.
-This means that there is no support for wirelessly communicating with the robot.
+This means that there is no support for wirelessly communicating with the robot and we chose not to implement it in the project.
+Trough the serial interface the lidar scan can be read and motion commands can be sent.
 
 \begin{figure}[H]
 \centering
@@ -16,7 +17,5 @@ This means that there is no support for wirelessly communicating with the robot.
 \caption{Neato XV-11}
 \label{fig:neato_xv11}
 \end{figure}
-
-
 
 % section hardware (end)

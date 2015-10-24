@@ -1,0 +1,8 @@
+[MCL]<>->[Particle]
+[MCL]<>->[Lidar]
+[Explorer]<>->[Lidar]
+[Lidar]<>->[Map]
+[PathFollower]<>->[AStarPlanner]
+[AStarPlanner]<>->[Map]
+[AStarPlanner]<>->[Node]
+[AStarPlanner]<>->[PathNode]
