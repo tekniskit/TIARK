@@ -3,10 +3,10 @@
 \section{Software} 
 \label{sec:software}
 
-The software was written mostly in c++ for its speed and partly in python for easy integration with an existing driver for the neato robot. ROS (Robot Operating System) was used for visualization and communication.
+The software was written mostly in c++ for its speed, and partly in python for easy integration with an existing driver for the neato robot. ROS (Robot Operating System) was used for visualization and communication.
 
 \subsection{ROS}
-To be able to easily test and validate the implemented AI methods, we used ROS to visualize the system. ROS  is a collection of software for building robot systems and has a large collection of packages for 3D visualization, navigation, mapping, localization, planning, etc. Only the visualization and communication parts of ROS has been used in this project. This is chosen due to the purpose of trying to implement localization, planning and control ourself. \\
+To be able to easily test and validate the implemented AI methods, we used ROS to visualize the system. ROS  is a collection of software for building robot systems and has a large collection of packages for 3D visualization, navigation, mapping, localization, planning, etc. Only the visualization and communication parts of ROS has been used in this project. This is chosen due to the purpose of trying to implement localization, planning, and control ourself. \\
 
 A ROS project consists of a collection of processes with a single responsibility, i.e. planning, vision, control, etc. ROS also handles the communication between these processes. The processes are conceptualized as nodes in a network which can communicate by publishing and subscribing on topics. \\
 
@@ -15,9 +15,9 @@ The communication in ROS consists of messages with a specific data type. The dat
 ROS master is the program that coordinates the communication between the nodes. It also works as a registry for nodes, services, topics, etc.
 
 \subsubsection{ROS Nodes}
-The system implements two ROS nodes, the first is a driver for Neato robot and the second is the navigation system.\\
+The system implements two ROS nodes, the first is a driver for the Neato robot and the second is the navigation system.\\
 
-The driver is a modified version of an open source driver for the robot. \fixme{\cite{neatoGithub}} The open source driver implements an older version of the serial protocol for the Neato robot. This has been modified to implement the newer protocol which the used robot uses.\\
+The driver is a modified version of an open source driver for the robot. \fixme{\cite{neatoGithub}} The open source driver implements an older version of the serial protocol for the Neato robot. This has been modified to implement the newer protocol which our robot uses.\\
 
 The navigation node implements all of the AI algorithms; localization, planning and control. The two nodes communicate using ROS messages for lidar scans and control commands. 
 
