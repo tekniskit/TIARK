@@ -3,7 +3,7 @@
 \section{Localization} % (fold)
 \label{sec:localization}
 
-Localization is used when a given robot has no idea of where it is located. The localization tasks consists of two main tasks; sensing and moving. These two tasks are performed alternately as illustrated in \autoref{fig:main tasks}. The robot might have an initial belief of where it is located and in that case this belief is taken into account together with the sense task at first.
+Localization is used when a given robot has no idea of where it is located. The localization tasks consists of two main tasks; sensing and moving. These two tasks are performed alternately as illustrated in \autoref{fig:main tasks}. The robot might have an initial belief of where it is located and in that case this belief is taken into account together with the sense task at first. For the robot to use localization it must be in possession of a map of the environment. The robot uses the map to compare it's belief of it's localization with the results of the sensing and the map.\\
 
 \begin{figure}[h]
 \centering
@@ -12,18 +12,11 @@ Localization is used when a given robot has no idea of where it is located. The 
 \label{fig:main tasks}
 \end{figure}
 
-For the robot to use localization it must be in possession of a map of the environment. The robot uses the map to compare it's belief of it's localization with the map and the results of the sensing.\\
+
 
 The first of the two tasks for the robot is to sense. This in done by using the sensors which are built in to the robot. For an example the robot could measure the distance to all walls in the environment or the color of the floor. These measurements should lead to a better belief of where the robot is located. Every time the robot senses it gains information of where it is located. The second task for the robot is to move. The robot needs to move in order to be able to get new information from the sensing task. When the robot moves it looses information of where it is located. This is due to inaccuracy of the robots speed and orientation. This will be illustrated in a robot example later on in this section.\\
 
 The algorithm to implement the two tasks is called the Markov Localization algorithm and is illustrated in Algorithm \ref{alg:ml_def1}. The algorithm is based on the Bayes filter algorithm and calculates the new belief based on the old belief $bel(x_{(t-1)})$, the motion $u_t$, the measurements $z_t$ and the map.
-
-% \begin{figure}[H]
-% \centering
-% \includegraphics[scale=0.25]{images/MarkovLocalization}
-% \caption{The Markov Localization algorithm}
-% \label{fig:markovLocalization}
-% \end{figure}
 
 \begin{center}
 \begin{minipage}{.65\linewidth}
@@ -62,7 +55,7 @@ This is an example of the localization process where a robot has to localize its
 \label{fig:initialBelief}
 \end{figure}
 
-As the robot starts localizing itself is performs a sensing task. The measurement indicates that the robot is localized next to a door. This measurement should only be obtained at three different locations in this environment. The probability of obtaining this measurement when located at those three locations, $p(z|x)$, therefore increases as illustrated in \autoref{fig:afterSenseBelief}. The new belief is calculated as the product of the prior belief and this probability.
+As the robot starts localizing itself is performs a sensing task. The measurement indicates that the robot is located next to a door. This measurement should only be obtained at three different locations in this environment. The probability of obtaining this measurement when located at those three locations, $p(z|x)$, therefore increases as illustrated in \autoref{fig:afterSenseBelief}. The new belief is calculated as the product of the prior belief and this probability.
 
 \begin{figure}[H]
 \centering
@@ -89,7 +82,7 @@ The robot performs a new sense task and the measurement indicated that the robot
 \label{fig:afterSecondSenseBelief}
 \end{figure}
 
-Even though the robot moves the one location is still dominant as illustrated in \autoref{fig:finalBelief}. Hence only one location is dominant he robot has now localized itself.
+Even though the robot moves the one location is still dominant as illustrated in \autoref{fig:finalBelief}. Hence only one location is dominant the robot has now localized itself.
 
 \begin{figure}[H]
 \centering

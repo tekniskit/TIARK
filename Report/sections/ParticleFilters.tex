@@ -2,10 +2,11 @@
 
 \section{Particle Filters}
 
-Particle Filter (PF) is another method for estimating the state of at system. As opposed to the Histogram Filter which is discrete in the state space and multimodal and Kalman Filter which is continuous in the state space but unimodal, the PF is continuous in the state space but also multimodel in its posterior belief. However, in robotics all of the methods are only approximations of the actual system state.\\
+Particle Filter (PF) is another method for estimating the state of at system. As opposed to the Histogram Filter which is discrete in the state space and multimodal, and Kalman Filter which is continuous in the state space but unimodal, the PF is continuous in the state space but also multimodel in its posterior belief. However, in robotics all of the methods are only approximations of the actual system state.\\
 
 PF can be used to perform global localization of a robot, given a map of the environment in which the robot resides at some unknown location. The robot acquires distance measurement to objects in its vicinity, then particles will be spread out at random locations on the map which represents the robot as if it was located at these locations. That is, each particle is a discrete guess about the robots location, which consists of coordinates and a heading. Each particle will then acquire distance measurements to objects in their vicinity and by comparing these measurement with the actual robots measurement, an estimation of the robots location is obtained as the particles who's measurements best resembles the actual robots measurement.\\
-However, similar measurement can probably be obtained at different locations on a particular map, and therefore the robot needs to move around in the environment and acquire new measurements. At some point in time, as the robots moves around and acquires new measurements, the particles which are most consistent with the robot will have been resampled again and again. As a result, locations with a high probability will collect more particles and will therefore be more representative of the robots posterior belief. When all of the particles are clustered at a single location, this location will (hopefully) be the robots actual location.\\
+
+However, similar measurement can probably be obtained at different locations on a particular map, and therefore the robot needs to move around in the environment and acquire new measurements. At some point in time, as the robots moves around and acquires new measurements, the particles which are most consistent with the robot will have been resampled again and again. As a result, locations with a high probability will collect more particles and will therefore be more representative of the robots posterior belief. When all of the particles are clustered at a single location, this location will be though of as the location of the robot even though it might not be the case.\\
 
 \subsection{Particle Filter Example}
 
@@ -18,7 +19,7 @@ To help summarize the operations of the PF, \autoref{fig:pf_ex1} shows a initial
 \label{fig:pf_ex1}
 \end{figure}
 
-Next, \autoref{fig:pf_ex2} shows the robot after having moved around in the environment and acquired new measurements and resampled the particles. This have let to some particles being eliminated and others surviving. The surviving particles are thoughts who are must consistent with the robots measurement. At this point it is still very uncertain where the robot resides.
+Next, \autoref{fig:pf_ex2} shows the robot after having moved around in the environment and acquired new measurements and resampled the particles. This have let to some particles being eliminated and others surviving. The surviving particles are those who are most consistent with the robots measurement. At this point it is still very uncertain where the robot resides.
 
 \begin{figure}[H]
 \centering
@@ -27,7 +28,7 @@ Next, \autoref{fig:pf_ex2} shows the robot after having moved around in the envi
 \label{fig:pf_ex2}
 \end{figure}
 
-At some point in time clusters may been formed which represents the most probable locations of the robot. In \autoref{fig:pf_ex3} two cluster have formed because of symmetry in the map, which produces similar distance measurement at different locations making them both probable. However, as the robots continuous to move around this symmetry will eventually be broken and only one cluster will survive.
+At some point in time clusters may be formed which represents the most probable locations of the robot. In \autoref{fig:pf_ex3} two cluster have formed because of symmetry in the map, which produces similar distance measurement at different locations making them both probable. However, as the robots continuous to move around this symmetry will eventually be broken and only one cluster will survive.
 
 \begin{figure}[H]
 \centering
@@ -39,6 +40,7 @@ At some point in time clusters may been formed which represents the most probabl
 \subsection{Resampling}
 
 An important part of the PF is how and when to resample. Resampling too often can be very costly with respect to computing power, but resampling too seldom will decrease accuracy and increase the time it takes to locate the robot.\\
-One possibility is to resample when there is a large variance in the weights of the particles. The weights represents how consistent the particle is with the robots measurements, and higher consistency, means a larger weight.\\
-When performing the resampling, the particles can be selected with some probability, and the weights can be used as a measure for the likelihood of selecting a particle for the next iteration. The larger the weight the more likely the particles will survive. This means that a particle can be selected more than once, not at all, or a particle with a small weight can be selected. But over time, particles with a large weight will be selected more often, resulting in clusters that are very consistent with the robots actual location.
 
+One possibility is to resample when there is a large variance in the weights of the particles. The weights represents how consistent the particle is with the measurements of the robot, and higher consistency, means a larger weight.\\
+
+When performing the resampling, the particles can be selected with some probability, and the weights can be used as a measure for the likelihood of selecting a particle for the next iteration. The larger the weight the more likely the particles will survive. This means that a particle can be selected more than once, not at all, or a particle with a small weight can be selected. But over time, particles with a large weight will be selected more often, resulting in clusters that are very consistent with the robots actual location.

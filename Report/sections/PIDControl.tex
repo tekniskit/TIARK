@@ -2,7 +2,7 @@
 \section{PID Control} % (fold)
 \label{sec:pid_control}
 
-When the has to follow a path errors might occur. To remove this error a Proportional Integral Derivative Controller can be used. As illustrated in \autoref{fig:PIDcontroller} the controller consists of three different parts which handle the error in three different ways. In order to explain the PID controller an example is examined. \\
+When the robot has to follow a path errors might occur. To remove this error a Proportional Integral Derivative Controller can be used. As illustrated in \autoref{fig:PIDcontroller} the controller consists of three different parts which handle the error in three different ways. In order to explain the PID controller an example is examined. \\
 
 \begin{figure}[h]
 \centering
@@ -30,7 +30,7 @@ The proportional part of the PID controller handles the error by using a gain $K
 u(t)=K_p e(t)
 \end{equation}
 
-The proportional controller will try to reduce or eliminate the error. The value of the gain has to be chosen. If the gain is very low the proportional controller reduces the error vary slowly. If the gain is very high it might result in a large overshoot or even overdrive which could lead to the car being out of control. \\
+The proportional controller will try to reduce or eliminate the error. The value of the gain has to be chosen. If the gain is very low the proportional controller reduces the error very slowly. If the gain is very high it might result in a large overshoot or even overdrive which could lead to the car getting out of control. \\
 
 In the example the car should drive along the x-axis with the value of y being equal to 0. Unfortunately the car is driving along the x-axis with the value of y being equal to 1 which means an error of 1. This is illustrated in \autoref{fig:P_controller_example} where all three examples of cars starts in $y=1$ and then tries to correct the error by turning towards $y=0$. \\
 
@@ -48,7 +48,7 @@ The highest value of $K_p$ results in the car getting out of control as explaine
 \subsection{Proportional Derivative Control} % (fold)
 \label{sub:proportional_derivative_control}
 
-The derivative part of the PID controller handles the error by using a gain $K_d$ which is multiplied by the derivative of the error. This means that it is taking the slope of the error into account. The formula of the output of derivative controller is shown in \autoref{eq:derivative_controller}.
+The derivative part of the PID controller handles the error by using a gain $K_d$ which is multiplied by the derivative of the error. This means that it is taking the slope of the error into account. The formula of the output of the derivative controller is shown in \autoref{eq:derivative_controller}.
 
 \begin{equation}
 \label{eq:derivative_controller}

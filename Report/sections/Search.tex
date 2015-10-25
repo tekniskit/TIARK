@@ -8,9 +8,9 @@ When a robot has located itself the next task might be to go somewhere. The task
 \subsection{A* Algorithm} % (fold)
 \label{sub:a_algorithm}
 
-The path planning can be looked at as a search problem. A search problem is a problem with a set of nodes, an initial node and a goal node. The search problem can be solved by using a search algorithm. The search algorithm starts at the initial node and searches throughout the nodes in order to find the goal node. A variant of this search algorithm has been developed in order to handle the problem of path planning better. This algorithm is referred to as A* (pronounced A star). The steps of the algorithm is explained in the following sections. \\
+The path planning can be looked at as a search problem. A search problem is a problem with a set of nodes, an initial node and a goal node. The search problem can be solved by using a search algorithm. The search algorithm starts at the initial node and searches throughout the nodes in order to find the goal node. A variant of this search algorithm has been developed in order to handle the problem of path planning better. This algorithm is referred to as A* (pronounced A star). The steps of the algorithm is explained in the following section. \\
 
-To understand the approach of the A* algorithm a couple of variables must be introduced. \\
+To understand the approach of the A* algorithm a couple of variables must be introduced.
 
 \begin{itemize}
 	\item The \emph{g} value is the cost of the path used to get to that node.
@@ -23,7 +23,7 @@ To understand the approach of the A* algorithm a couple of variables must be int
 The algorithm also introduces three different lists.
 
 \begin{itemize}
-	\item The \emph{open} list is a list of nodes to be investigated. The list is sorted in a way so the node with the smallest \emph{f} value is the next node to be investigated. Nodes are being added to the \emph{open} list when a neighbor node is being investigated.
+	\item The \emph{open} list is a list of nodes to be investigated. The list is sorted so that the node with the smallest \emph{f} value is the next node to be investigated. Nodes are being added to the \emph{open} list when a neighbor node is being investigated.
 
 	\item The \emph{closed} list is a list of all nodes which have been investigated. This is used to keep track of these nodes in order to avoid investigation of a node twice or more.
 
@@ -56,7 +56,7 @@ For the smoothing algorithm all nodes in the \emph{path} list are denoted $x_i$ 
 y_i = x_i
 \end{equation}
 
-The minimization problem is defined in \autoref{eq:minimize}. The factor $\alpha$ sets how smooth the path is going to be. The larger value of $\alpha$, the more smooth does the path get. 
+The minimization problem is defined in \autoref{eq:minimize}. The factor $\alpha$ sets how smooth the path is going to be. The larger value of $\alpha$, the more smooth the path gets. 
 
 \begin{equation}
 \label{eq:minimize}
