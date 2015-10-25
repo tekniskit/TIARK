@@ -3,37 +3,28 @@
 \section{Discussion} % (fold)
 \label{sec:discussion}
 
-This section will discuss how the project could be improved to get better results.
+This section will discuss how the project could be improved to get better results.\\
 
 \subsection{Localization}
-One can't ensure that the particle filter will always find the correct position of the robot.
-One way to improve our implementation is to use a better resampling strategy.
-We resample at every 10 movements, which is a very simple strategy.
-Our map has a lot of long straight coridors which all looks the same with a lidar range scan, so by resampling often while having particle clouds in multiple of these coridors, we might lose the cloud at the correct position.
-This is because the weight of all the particles in the different coridors are about the same.
-If we only resample when the variance in the particle weights are high we could maybe make the localization better. \\
+As described in \autoref{sec:test} one can't ensure that the particle filter will always find the correct position of the robot. One way to improve our implementation is to use a better re-sampling strategy.\\
 
-Even with the above mentioned method, we cant be sure that the localization works everytime.
-The augmented MCL algorithm could be used to recover from these failures.
-The algorithm keeps track of the average weights on a long term and short term.
-The lower the short term average weight is in relation to the long term average weight, the more particles are sampled randomly instead of from the existing particles.
-The intuition is that when the average weight drops, it is because the particles no longer fits the correct position well, and we start probing the map at random for better positions. \\
+In the implementation a re-sampling is performed every 10 movements, which is a very simple strategy. The map has a lot of long straight corridors which all looks the same with a lidar range scan, so by re-sampling often while having particle clouds in multiple of these corridors, the cloud at the correct position might be eliminated. This is because the weight of all the particles in the different corridors are about the same. If re-sampling only happened when the variance in the particle weights are high in might result in better localization skills. \\
 
-The augmented MCL algorithm is a reactive algorithm in the sense that it reacts to the failure and tries to correct it.
-The mixture MCL is a proactive method that should work even better.
-During resample it will take a small amount of particles and place them at positions where the particle will get a high weight.
-It basicly probes some of the likely positions on the map.
-This way you reduce the risk of getting stuck with all the particles at a wrong position.
+Even with the above mentioned method, an error-free localization cannot be ensured. The augmented MCL algorithm could be used to recover from these failures. The algorithm keeps track of the average weights on a long term and short term. The lower the short term average weight is in relation to the long term average weight, the more particles are sampled randomly instead of from the existing particles. The intuition is that when the average weight drops, it is because the particles no longer fits the correct position well, and particles start probing the map at random locations for better positioning. \\
+
+The augmented MCL algorithm is a reactive algorithm in the sense that it reacts to the failure and tries to correct it. The mixture MCL is a proactive method that should work even better. During re-sampling it will take a small amount of particles and place them at positions where the particle will get a high weight. It basically probes some of the likely positions on the map.
+This way you reduce the risk of getting stuck with all the particles at a wrong position.\\
 
 \subsection{Real robot}
-We didn't get far while testing with the real robot even though the simulation worked much better.
-One of the main issues was that we only model sensor noise as a normal distribution around the simulated measurement.
-This way we don't handle the possiblity of corrupt measurements.
-The Neato robot will give a sensor measurement of 0 when a measurement is invalid, and these should be ignored.
-During testing we did not ignore these corrupt measurements.
-We could also do tests to measure the variance of the noise on the real sensor and the variance of the execution of motion commands to get a better model of the real robot.
+Implementation and testing on a real-life robot did not get very far.
+One of the main issues was that sensor noise is only modeled as a normal distribution around the simulated measurement. In this way the possibility of corrupt measurements are not handled.\\
+
+The Neato robot will give a sensor measurement of 0 when a measurement is invalid, and these should be ignored. During testing those corrupt measurements were not ignored, hence the code from the simulations were used. Tests to measure the variance of the noise on the real sensor and the variance of the execution of motion commands could have been performed in order to get a better model of the real robot. This has not been done due to lack of time and relevance for the course.
 
 \subsection{ROS navigation stack}
+
+\fixme{Jeg ved ikke om vi skal have det sidste afsnit med..}
+
 ROS has open source packages for navigation, planning, control and mapping, which might work better than our implementations.
 
 % section discussion (end)
