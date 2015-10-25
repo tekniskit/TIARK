@@ -41,7 +41,7 @@ The first step in the algorithm is line 3 in Algorithm \ref{alg:ml_def1}. In thi
 
 The second step is line 4 in Algorithm \ref{alg:ml_def1}. This step looks at the probability that the measurement $z_t$ may have been observed at the the location $x_t$ according to the map. This is multiplied by the belief of $x_t$. This product is normalized by the normalization constant $\eta$ so it will integrate to 1. This step is referred to as the measurement update.\\
 
-The algorithm needs an an prior belief to calculate the new belief. If no initial belief is known the algorithm should use a uniform distribution as the prior belief.
+The algorithm needs a prior belief to calculate the new belief. If no initial belief is known the algorithm should use a uniform distribution as the prior belief.
 
 \subsection{Robot Example} % (fold)
 \label{sub:robot_example}
@@ -55,7 +55,7 @@ This is an example of the localization process where a robot has to localize its
 \label{fig:initialBelief}
 \end{figure}
 
-As the robot starts localizing itself is performs a sensing task. The measurement indicates that the robot is located next to a door. This measurement should only be obtained at three different locations in this environment. The probability of obtaining this measurement when located at those three locations, $p(z|x)$, therefore increases as illustrated in \autoref{fig:afterSenseBelief}. The new belief is calculated as the product of the prior belief and this probability.
+As the robot starts localizing itself it performs a sensing task. The measurement indicates that the robot is located next to a door. This measurement should only be obtained at three different locations in this environment. The probability of obtaining this measurement when located at those three locations, $p(z|x)$, therefore increases as illustrated in \autoref{fig:afterSenseBelief}. The new belief is calculated as the product of the prior belief and this probability.
 
 \begin{figure}[H]
 \centering

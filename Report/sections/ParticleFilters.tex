@@ -6,7 +6,7 @@ Particle Filter (PF) is another method for estimating the state of at system. As
 
 PF can be used to perform global localization of a robot, given a map of the environment in which the robot resides at some unknown location. The robot acquires distance measurement to objects in its vicinity, then particles will be spread out at random locations on the map which represents the robot as if it was located at these locations. That is, each particle is a discrete guess about the robots location, which consists of coordinates and a heading. Each particle will then acquire distance measurements to objects in their vicinity and by comparing these measurement with the actual robots measurement, an estimation of the robots location is obtained as the particles who's measurements best resembles the actual robots measurement.\\
 
-However, similar measurement can probably be obtained at different locations on a particular map, and therefore the robot needs to move around in the environment and acquire new measurements. At some point in time, as the robots moves around and acquires new measurements, the particles which are most consistent with the robot will have been resampled again and again. As a result, locations with a high probability will collect more particles and will therefore be more representative of the robots posterior belief. When all of the particles are clustered at a single location, this location will be though of as the location of the robot even though it might not be the case.\\
+However, similar measurement can probably be obtained at different locations on a particular map, and therefore the robot needs to move around in the environment and acquire new measurements. At some point in time, as the robot moves around and acquires new measurements, the particles which are most consistent with the robot will have been resampled again and again. As a result, locations with a high probability will collect more particles and will therefore be more representative of the robots posterior belief. When all of the particles are clustered at a single location, this location will be thought of as the location of the robot even though it might not be the case.\\
 
 \subsection{Particle Filter Example}
 
@@ -28,7 +28,7 @@ Next, \autoref{fig:pf_ex2} shows the robot after having moved around in the envi
 \label{fig:pf_ex2}
 \end{figure}
 
-At some point in time clusters may be formed which represents the most probable locations of the robot. In \autoref{fig:pf_ex3} two cluster have formed because of symmetry in the map, which produces similar distance measurement at different locations making them both probable. However, as the robots continuous to move around this symmetry will eventually be broken and only one cluster will survive.
+At some point in time clusters may be formed which represents the most probable locations of the robot. In \autoref{fig:pf_ex3} two clusters have formed because of symmetry in the map, which produces similar distance measurement at different locations making them both probable. However, as the robots continues to move around, this symmetry will eventually be broken and only one cluster will survive.
 
 \begin{figure}[H]
 \centering
