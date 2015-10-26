@@ -20,11 +20,3 @@ Implementation and testing on a real-life robot did not get very far.
 One of the main issues was that sensor noise is only modeled as a normal distribution around the simulated measurement. In this way the possibility of corrupt measurements are not handled.\\
 
 The Neato robot will give a sensor measurement of 0 when a measurement is invalid, and these should be ignored. During testing those corrupt measurements were not ignored, hence the code from the simulations were used. Tests to measure the variance of the noise on the real sensor and the variance of the execution of motion commands could have been performed in order to get a better model of the real robot. This has not been done due to lack of time and relevance for the course.
-
-\subsection{ROS navigation stack}
-
-\fxfatal{Jeg ved ikke om vi skal have det sidste afsnit med..}
-
-ROS has open source packages for navigation, planning, control and mapping, which might work better than our implementations.
-
-% section discussion (end)

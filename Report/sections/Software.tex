@@ -17,7 +17,7 @@ ROS master is the program that coordinates the communication between the nodes. 
 \subsubsection{ROS Nodes}
 The system implements two ROS nodes, the first is a driver for the Neato robot and the second is the navigation system.\\
 
-The driver is a modified version of an open source driver for the robot. \fxfatal{\cite{neatoGithub}} The open source driver implements an older version of the serial protocol for the Neato robot. This has been modified to implement the newer protocol which our robot uses.\\
+The driver is a modified version of an open source driver for the robot. \cite{neato} The open source driver implements an older version of the serial protocol for the Neato robot. This has been modified to implement the newer protocol which our robot uses.\\
 
 The navigation node implements all of the AI algorithms; localization, planning and control. The two nodes communicate using ROS messages for lidar scans and control commands. 
 
